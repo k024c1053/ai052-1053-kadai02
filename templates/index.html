@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>天気予報アプリ</title>
+    <!-- Bootstrap -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+</head>
+<body>
+    <div class="container text-center">
+        <h1 class="my-4">🌤 日本の天気予報</h1>
+
+        <!-- 都市選択フォーム -->
+        <form action="/" method="POST" class="mb-4">
+            <label for="city" class="form-label">都市を選択:</label>
+            <select name="city" id="city" class="form-select w-auto d-inline">
+                <option value="130010" {% if selected_city == "130010" %}selected{% endif %}>東京</option>
+                <option value="270000" {% if selected_city == "270000" %}selected{% endif %}>大阪</option>
+                <option value="230010" {% if selected_city == "230010" %}selected{% endif %}>名古屋</option>
+                <option value="260010" {% if selected_city == "260010" %}selected{% endif %}>京都</option>
+                <option value="016010" {% if selected_city == "016010" %}selected{% endif %}>札幌</option>
+            </select>
+            <button type="submit" class="btn btn-primary">検索</button>
+        </form>
+
+        <!-- 天気情報の表示 -->
+        <div class="row justify-content-center">
+            {% for weather in forecasts %}
+            <div class="col-md-4">
+                <div class="card text-center p-3 weather-card">
+                    <h2 class="card-title">{{ weather.date }}</h2>
+                    <img src="{{ weather.image }}" alt="天気アイコン" class="weather-icon">
+                    <p class="card-text">{{ weather.telop }}</p>
+                    <p>🌡 最高: {{ weather.temperature.max }}℃</p>
+                    <p>❄ 最低: {{ weather.temperature.min }}℃</p>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+    <footer class="text-center mt-5 py-3 border-top">
+          <p>Copyright © 2025 k024c1053</p> 
+          <p>Resource by 「<a href="https://weather.tsukumijima.net/api/forecast" target="_blank">天気予報API (livedoor天気互換)</a>」</p> 
+    </footer>
+</body>
+</html>
